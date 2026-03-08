@@ -7,18 +7,19 @@
     <title>YKS 2026 | Profesyonel Çalışma Takibi</title>
     <style>
         :root {
-            --bg-color: #0b0f1a;
-            --card-bg: #161b2c;
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
-            --border-color: #2d364d;
-            --primary: #6366f1;
-            /* Indigo - modern profesyonel renk */
-            --primary-hover: #818cf8;
-            --danger: #ef4444;
-            --warning: #fbbf24;
-            --success: #22c55e;
-            --accent: #ec4899;
+            /* Sade ve mat karanlık tema renkleri */
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #e0e0e0;
+            --text-muted: #888888;
+            --border-color: #333333;
+            --primary: #4a90e2;
+            /* Düz, göz yormayan bir mavi */
+            --primary-hover: #357abd;
+            --danger: #cf6679;
+            --warning: #f2c94c;
+            --success: #6fcf97;
+            --accent: #bb86fc;
         }
 
         * {
@@ -37,7 +38,7 @@
 
         /* Navbar */
         nav {
-            background-color: rgba(22, 27, 44, 0.9);
+            background-color: rgba(30, 30, 30, 0.95);
             backdrop-filter: blur(10px);
             padding: 1rem 5%;
             display: flex;
@@ -53,19 +54,17 @@
             font-size: 1.5rem;
             font-weight: 800;
             letter-spacing: -0.5px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary);
         }
 
         .countdown {
             font-size: 0.9rem;
             font-weight: 600;
-            background: rgba(99, 102, 241, 0.1);
+            background: rgba(74, 144, 226, 0.1);
             color: var(--primary);
             padding: 8px 16px;
             border-radius: 99px;
-            border: 1px solid rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(74, 144, 226, 0.2);
         }
 
         /* Container */
@@ -108,12 +107,11 @@
             padding: 24px;
             display: flex;
             flex-direction: column;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s ease-in-out;
         }
 
         .day-card:hover {
             border-color: var(--primary);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
         }
 
         .day-title {
@@ -134,7 +132,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .task-content {
@@ -154,9 +152,8 @@
 
         .task-text {
             font-size: 1.05rem;
-            /* Büyütüldü */
             font-weight: 500;
-            color: #cbd5e1;
+            color: #cccccc;
         }
 
         .task-text.completed {
@@ -198,7 +195,7 @@
         }
 
         .btn-edit {
-            background-color: rgba(251, 191, 36, 0.1);
+            background-color: rgba(242, 201, 76, 0.1);
             color: var(--warning);
             padding: 4px 8px;
             font-size: 0.75rem;
@@ -210,7 +207,7 @@
         }
 
         .btn-delete {
-            background-color: rgba(239, 68, 68, 0.1);
+            background-color: rgba(207, 102, 121, 0.1);
             color: var(--danger);
             padding: 4px 8px;
             font-size: 0.75rem;
@@ -222,19 +219,51 @@
         }
 
         .btn-refresh {
-            background: linear-gradient(135deg, var(--primary) 0%, #4338ca 100%);
+            background: var(--primary);
             color: white;
             padding: 16px 32px;
             font-size: 1rem;
             border-radius: 10px;
             margin: 40px auto;
             display: flex;
-            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
         }
 
         .btn-refresh:hover {
+            background: var(--primary-hover);
             transform: translateY(-2px);
-            box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.5);
+        }
+
+        /* Saat Girişi CSS */
+        .hours-container {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hours-container label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .hours-input {
+            width: 80px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-main);
+            text-align: center;
+            font-weight: 600;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .hours-input:focus {
+            border-color: var(--primary);
         }
 
         /* Responsive */
@@ -294,70 +323,71 @@
         setInterval(updateCountdown, 3600000);
         updateCountdown();
 
-        // --- ASIL AYT MAT PLANINIZ BURADA ---
+        // --- GÜNCELLENMİŞ AYT/TYT PLANINIZ BURADA ---
         const defaultSchedule = {
             'Pazartesi': [
-                { id: 11, text: "1. BLOK: TEKRAR", completed: false },
-                { id: 12, text: "2. BLOK: AYT Fizik", completed: false },
-                { id: 13, text: "3. BLOK: AYT Kimya", completed: false },
-                { id: 14, text: "4. BLOK: Soru Çözümü", completed: false },
-                { id: 15, text: "5. BLOK: Türkçe Deneme", completed: false },
-                { id: 16, text: "6. BLOK: Problem/Sayılar/Geometri Deneme", completed: false },
-                { id: 17, text: "7. BLOK: TYT Fen Branş Denemeleri x2", completed: false },
-                { id: 18, text: "8. BLOK: TEKRAR", completed: false }
+                { id: 11, text: "Türkçe Deneme", completed: false },
+                { id: 12, text: "Problem Deneme", completed: false },
+                { id: 13, text: "Geometri Deneme", completed: false },
+                { id: 14, text: "AYT Kimya", completed: false },
+                { id: 15, text: "AYT Fizik", completed: false },
+                { id: 16, text: "Sayılar Deneme", completed: false },
+                { id: 17, text: "AYT Matematik", completed: false },
+                { id: 18, text: "TYT Fen Branş Denemeleri x2", completed: false }
             ],
             'Salı': [
-                { id: 21, text: "1. BLOK: TEKRAR", completed: false },
-                { id: 22, text: "2. BLOK: AYT Fizik", completed: false },
-                { id: 23, text: "3. BLOK: AYT Kimya", completed: false },
-                { id: 24, text: "4. BLOK: Soru Çözümü", completed: false },
-                { id: 25, text: "5-7. BLOK: TYT GENEL DENEME", completed: false },
-                { id: 26, text: "8. BLOK: TEKRAR", completed: false }
+                { id: 21, text: "Türkçe Deneme", completed: false },
+                { id: 22, text: "Problem Deneme", completed: false },
+                { id: 23, text: "Geometri Deneme", completed: false },
+                { id: 24, text: "AYT Kimya", completed: false },
+                { id: 25, text: "AYT Fizik", completed: false },
+                { id: 26, text: "Sosyal Deneme", completed: false },
+                { id: 27, text: "AYT Matematik", completed: false },
+                { id: 28, text: "TYT Fen Branş Denemeleri x2", completed: false }
             ],
             'Çarşamba': [
-                { id: 31, text: "1. BLOK: TEKRAR", completed: false },
-                { id: 32, text: "2. BLOK: AYT Fizik", completed: false },
-                { id: 33, text: "3. BLOK: AYT Kimya", completed: false },
-                { id: 34, text: "4. BLOK: Soru Çözümü", completed: false },
-                { id: 35, text: "5. BLOK: Türkçe Deneme", completed: false },
-                { id: 36, text: "6. BLOK: Problem/Sayılar/Geometri Deneme", completed: false },
-                { id: 37, text: "7. BLOK: TYT Fen Branş Denemeleri x2", completed: false },
-                { id: 38, text: "8. BLOK: TEKRAR", completed: false }
+                { id: 31, text: "Türkçe Deneme", completed: false },
+                { id: 32, text: "Problem Deneme", completed: false },
+                { id: 33, text: "Geometri Deneme", completed: false },
+                { id: 34, text: "AYT Kimya", completed: false },
+                { id: 35, text: "AYT Fizik", completed: false },
+                { id: 36, text: "Sosyal Deneme", completed: false },
+                { id: 37, text: "AYT Matematik", completed: false },
+                { id: 38, text: "TYT Fen Branş Denemeleri x2", completed: false }
             ],
             'Perşembe': [
-                { id: 41, text: "1. BLOK: TEKRAR", completed: false },
-                { id: 42, text: "2. BLOK: AYT Fizik", completed: false },
-                { id: 43, text: "3. BLOK: AYT Kimya", completed: false },
-                { id: 44, text: "4. BLOK: Soru Çözümü", completed: false },
-                { id: 45, text: "5. BLOK: Türkçe Deneme", completed: false },
-                { id: 46, text: "6. BLOK: Problem/Geometri Deneme", completed: false },
-                { id: 47, text: "7. BLOK: TYT Fen Branş Denemeleri x2", completed: false },
-                { id: 48, text: "8. BLOK: TEKRAR", completed: false }
+                { id: 41, text: "Türkçe Deneme", completed: false },
+                { id: 42, text: "Problem Deneme", completed: false },
+                { id: 43, text: "Geometri Deneme", completed: false },
+                { id: 44, text: "AYT Kimya", completed: false },
+                { id: 45, text: "AYT Fizik", completed: false },
+                { id: 46, text: "Sayılar Deneme", completed: false },
+                { id: 47, text: "AYT Matematik", completed: false },
+                { id: 48, text: "TYT Fen Branş Denemeleri x2", completed: false }
             ],
             'Cuma': [
-                { id: 51, text: "1. BLOK: TEKRAR", completed: false },
-                { id: 52, text: "2-4. BLOK: TYT GENEL DENEME", completed: false },
-                { id: 53, text: "5. BLOK: TEKRAR", completed: false },
-                { id: 54, text: "6. BLOK: Dilbilgisi", completed: false },
-                { id: 55, text: "7. BLOK: Sosyal", completed: false },
-                { id: 56, text: "8. BLOK: TEKRAR", completed: false }
+                { id: 51, text: "TYT GENEL DENEME", completed: false },
+                { id: 52, text: "AYT Kimya", completed: false },
+                { id: 53, text: "AYT Fizik", completed: false },
+                { id: 54, text: "Dil Bilgisi", completed: false },
+                { id: 55, text: "Sosyal", completed: false },
+                { id: 56, text: "TEKRAR", completed: false }
             ],
             'Cumartesi': [
-                { id: 61, text: "1. BLOK: TEKRAR", completed: false },
-                { id: 62, text: "2. BLOK: Problemler", completed: false },
-                { id: 63, text: "3. BLOK: Geometri", completed: false },
-                { id: 64, text: "4. BLOK: AYT Fizik", completed: false },
-                { id: 65, text: "5. BLOK: AYT Kimya", completed: false },
-                { id: 66, text: "6. BLOK: TYT Fen Tekrar", completed: false },
-                { id: 67, text: "8. BLOK: TEKRAR", completed: false }
+                { id: 61, text: "Türkçe Deneme", completed: false },
+                { id: 62, text: "Problem Deneme", completed: false },
+                { id: 63, text: "Geometri Deneme", completed: false },
+                { id: 64, text: "AYT Kimya", completed: false },
+                { id: 65, text: "AYT Fizik", completed: false },
+                { id: 66, text: "Sosyal Deneme", completed: false },
+                { id: 67, text: "AYT Matematik", completed: false }
             ],
             'Pazar': [
-                { id: 71, text: "1. BLOK: TEKRAR", completed: false },
-                { id: 72, text: "2. BLOK: Problemler", completed: false },
-                { id: 73, text: "3. BLOK: Geometri", completed: false },
-                { id: 74, text: "4. BLOK: Türkçe Deneme", completed: false },
-                { id: 75, text: "5. BLOK: Hafta Analizi", completed: false },
-                { id: 76, text: "8. BLOK: TEKRAR", completed: false }
+                { id: 71, text: "Türkçe Deneme", completed: false },
+                { id: 72, text: "Problem Deneme", completed: false },
+                { id: 73, text: "Geometri Deneme", completed: false },
+                { id: 74, text: "TEKRAR", completed: false },
+                { id: 75, text: "Hafta Analizi", completed: false }
             ],
             'aytMat': [
                 { id: 101, text: "📅 1. HAFTA: Fonksiyonlar", completed: false },
@@ -374,10 +404,23 @@
             ]
         };
 
-        let state = JSON.parse(localStorage.getItem('yksPlanState_v2')) || defaultSchedule;
+        let state = JSON.parse(localStorage.getItem('yksPlanState_v3')) || defaultSchedule;
+
+        let hoursState = JSON.parse(localStorage.getItem('yksHoursState_v3')) || {
+            'Pazartesi': '', 'Salı': '', 'Çarşamba': '', 'Perşembe': '', 'Cuma': '', 'Cumartesi': '', 'Pazar': ''
+        };
 
         function saveState() {
-            localStorage.setItem('yksPlanState_v2', JSON.stringify(state));
+            localStorage.setItem('yksPlanState_v3', JSON.stringify(state));
+        }
+
+        function saveHours() {
+            localStorage.setItem('yksHoursState_v3', JSON.stringify(hoursState));
+        }
+
+        function updateHours(day, value) {
+            hoursState[day] = value;
+            saveHours();
         }
 
         function render() {
@@ -390,7 +433,16 @@
                 const card = document.createElement('div');
                 card.className = 'day-card';
                 let tasks = state[day].map(t => createTaskHTML(day, t)).join('');
-                card.innerHTML = `<div class="day-title">${day}</div><ul class="task-list">${tasks}</ul><button class="btn-add" onclick="addTask('${day}')">+ Ekle</button>`;
+
+                let currentHours = hoursState[day] || '';
+                let hoursHTML = `
+                    <div class="hours-container">
+                        <label>Çalışma (Saat):</label>
+                        <input type="number" step="0.5" min="0" class="hours-input" value="${currentHours}" onchange="updateHours('${day}', this.value)" placeholder="0">
+                    </div>
+                `;
+
+                card.innerHTML = `<div class="day-title">${day}</div><ul class="task-list">${tasks}</ul><button class="btn-add" onclick="addTask('${day}')">+ Görev Ekle</button>${hoursHTML}`;
                 container.appendChild(card);
             });
 
@@ -432,9 +484,13 @@
         }
 
         function resetAllChecks() {
-            if (confirm("Tüm tikler temizlenecek, emin misin?")) {
+            if (confirm("Tüm tikler ve çalışma saatleri temizlenecek, emin misin?")) {
                 for (let c in state) state[c].forEach(t => t.completed = false);
-                saveState(); render();
+                for (let d in hoursState) hoursState[d] = '';
+
+                saveState();
+                saveHours();
+                render();
             }
         }
 
