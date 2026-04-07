@@ -14,7 +14,6 @@
             --text-muted: #888888;
             --border-color: #333333;
             --primary: #4a90e2;
-            /* Düz, göz yormayan bir mavi */
             --primary-hover: #357abd;
             --danger: #cf6679;
             --warning: #f2c94c;
@@ -286,7 +285,7 @@
 <body>
 
     <nav>
-        <div class="nav-brand">YKS 2026 FOCUS</div>
+        <div class="nav-brand">YKS 2026</div>
         <div class="countdown" id="countdown-display">Yükleniyor...</div>
     </nav>
 
@@ -294,11 +293,7 @@
         <h2 class="section-title">Haftalık Rutin</h2>
         <div class="schedule-grid" id="schedule-container"></div>
 
-        <h2 class="section-title" style="margin-top: 60px;">AYT Matematik Fokus <span>4 Haftalık Kamp</span></h2>
-        <div class="day-card" style="width: 100%;">
-            <ul class="task-list" id="ayt-mat-list"></ul>
-            <button class="btn-add" onclick="addTask('aytMat')">+ Stratejik Konu Ekle</button>
-        </div>
+        <ul class="task-list" id="tyt-kamp-list"></ul>
 
         <button class="btn-refresh" onclick="resetAllChecks()">
             🔄 Hafta Analizini Bitir ve Sıfırla
@@ -323,95 +318,70 @@
         setInterval(updateCountdown, 3600000);
         updateCountdown();
 
-        // --- GÖRSELE GÖRE GÜNCELLENMİŞ PLAN ---
+        // --- GÜNCELLENMİŞ 2 AYLIK TYT PLANI ---
         const defaultSchedule = {
             'Pazartesi': [
-                { id: 11, text: "Dil Bilgisi deneme", completed: false },
-                { id: 12, text: "TYT Fen tekrar", completed: false },
-                { id: 13, text: "Organik kimya", completed: false },
-                { id: 14, text: "AYT Fizik soru çözüm", completed: false },
-                { id: 15, text: "Sistemler", completed: false },
-                { id: 16, text: "Trigonometri", completed: false },
-                { id: 17, text: "Geometri Deneme", completed: false }
+                { id: 11, text: "Dil Bilgisi", completed: false },
+                { id: 12, text: "Geometri deneme", completed: false },
+                { id: 13, text: "Problem Çözümü", completed: false },
+                { id: 14, text: "TYT Fen tekrar", completed: false },
+                { id: 15, text: "PKOB", completed: false }
             ],
             'Salı': [
-                { id: 21, text: "Dil Bilgisi deneme", completed: false },
-                { id: 22, text: "TYT Fen tekrar", completed: false },
-                { id: 23, text: "Organik kimya", completed: false },
-                { id: 24, text: "AYT Fizik soru çözüm", completed: false },
-                { id: 25, text: "Sistemler", completed: false },
-                { id: 26, text: "Trigonometri", completed: false },
-                { id: 27, text: "TYT Matematik deneme", completed: false },
-                { id: 28, text: "AYT Matematik konu deneme", completed: false }
+                { id: 21, text: "Dil Bilgisi", completed: false },
+                { id: 22, text: "Geometri deneme", completed: false },
+                { id: 23, text: "Problem Çözümü", completed: false },
+                { id: 24, text: "TYT Fen tekrar", completed: false },
+                { id: 25, text: "PKOB", completed: false }
             ],
             'Çarşamba': [
-                { id: 31, text: "Dil Bilgisi deneme", completed: false },
-                { id: 32, text: "TYT Fen tekrar", completed: false },
-                { id: 33, text: "Organik kimya", completed: false },
-                { id: 34, text: "AYT Fizik soru çözüm", completed: false },
-                { id: 35, text: "Sistemler", completed: false },
-                { id: 36, text: "Trigonometri", completed: false },
-                { id: 37, text: "Geometri Deneme", completed: false },
-                { id: 38, text: "AYT Matematik konu deneme", completed: false }
+                { id: 31, text: "Dil Bilgisi", completed: false },
+                { id: 32, text: "Geometri deneme", completed: false },
+                { id: 33, text: "Problem Çözümü", completed: false },
+                { id: 34, text: "TYT Fen tekrar", completed: false },
+                { id: 35, text: "PKOB", completed: false }
             ],
             'Perşembe': [
-                { id: 41, text: "Dil Bilgisi deneme", completed: false },
-                { id: 42, text: "TYT Fen tekrar", completed: false },
-                { id: 43, text: "Organik kimya", completed: false },
-                { id: 44, text: "AYT Fizik soru çözüm", completed: false },
-                { id: 45, text: "Sistemler", completed: false },
-                { id: 46, text: "Trigonometri", completed: false },
-                { id: 47, text: "TYT Matematik deneme", completed: false },
-                { id: 48, text: "AYT Matematik konu deneme", completed: false }
+                { id: 41, text: "Dil Bilgisi", completed: false },
+                { id: 42, text: "Geometri deneme", completed: false },
+                { id: 43, text: "Problem Çözümü", completed: false },
+                { id: 44, text: "TYT Fen tekrar", completed: false },
+                { id: 45, text: "PKOB", completed: false }
             ],
             'Cuma': [
                 { id: 51, text: "TYT GENEL DENEME", completed: false },
-                { id: 52, text: "Organik kimya", completed: false },
-                { id: 53, text: "Sistemler", completed: false },
-                { id: 54, text: "Trigonometri", completed: false },
-                { id: 55, text: "AYT Matematik konu deneme", completed: false }
+                { id: 52, text: "Deneme analizi", completed: false },
+                { id: 53, text: "TYT Fen tekrar", completed: false },
+                { id: 54, text: "Geometri", completed: false }
             ],
             'Cumartesi': [
-                { id: 61, text: "AYT GENEL DENEME", completed: false },
-                { id: 62, text: "Sosyal Deneme", completed: false },
-                { id: 63, text: "Deneme Analizi", completed: false }
+                { id: 61, text: "TYT Türkçe deneme", completed: false },
+                { id: 62, text: "TYT Matematik branş", completed: false },
+                { id: 63, text: "Sosyal", completed: false },
+                { id: 64, text: "Fen", completed: false }
+
             ],
             'Pazar': [
-                { id: 71, text: "Dil Bilgisi Deneme", completed: false },
-                { id: 72, text: "Geometri Deneme", completed: false },
-                { id: 73, text: "TEKRAR", completed: false },
+                { id: 71, text: "TYT Türkçe deneme", completed: false },
+                { id: 72, text: "TYT Matematik branş", completed: false },
+                { id: 73, text: "Sosyal", completed: false },
                 { id: 74, text: "Hafta Analizi", completed: false }
-            ],
-            'aytMat': [
-                { id: 101, text: "1. HAFTA: Fonksiyonlar", completed: true },
-                { id: 102, text: "1. HAFTA: Polinom", completed: true },
-                { id: 103, text: "1. HAFTA: 2. Derece Denklemler", completed: true },
-                { id: 104, text: "2. HAFTA: Parabol", completed: true },
-                { id: 105, text: "2. HAFTA: Eşitsizlik", completed: true },
-                { id: 106, text: "2. HAFTA: Mutlak Değer", completed: true },
-                { id: 107, text: "3. HAFTA: Trigonometri", completed: false },
-                { id: 108, text: "3. HAFTA: Logaritma", completed: false },
-                { id: 109, text: "4. HAFTA: Limit", completed: false },
-                { id: 110, text: "4. HAFTA: Türev", completed: false },
-                { id: 111, text: "4. HAFTA: İntegral Başlangıç", completed: false },
-                { id: 112, text: "EK: Benzerlik", completed: false },
-                { id: 113, text: "EK: Katı Cisimler", completed: false }
             ]
         };
 
-        // LocalStorage sürümlerini v4 yaparak yeni programın devreye girmesini sağladık.
-        let state = JSON.parse(localStorage.getItem('yksPlanState_v4')) || defaultSchedule;
+        // LocalStorage sürümünü v5 yaparak yeni TYT programının yüklenmesini garantiledik
+        let state = JSON.parse(localStorage.getItem('yksPlanState_v5')) || defaultSchedule;
 
-        let hoursState = JSON.parse(localStorage.getItem('yksHoursState_v4')) || {
+        let hoursState = JSON.parse(localStorage.getItem('yksHoursState_v5')) || {
             'Pazartesi': '', 'Salı': '', 'Çarşamba': '', 'Perşembe': '', 'Cuma': '', 'Cumartesi': '', 'Pazar': ''
         };
 
         function saveState() {
-            localStorage.setItem('yksPlanState_v4', JSON.stringify(state));
+            localStorage.setItem('yksPlanState_v5', JSON.stringify(state));
         }
 
         function saveHours() {
-            localStorage.setItem('yksHoursState_v4', JSON.stringify(hoursState));
+            localStorage.setItem('yksHoursState_v5', JSON.stringify(hoursState));
         }
 
         function updateHours(day, value) {
@@ -421,9 +391,9 @@
 
         function render() {
             const container = document.getElementById('schedule-container');
-            const aytList = document.getElementById('ayt-mat-list');
+            const tytList = document.getElementById('tyt-kamp-list');
             container.innerHTML = '';
-            aytList.innerHTML = '';
+            tytList.innerHTML = '';
 
             ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'].forEach(day => {
                 const card = document.createElement('div');
@@ -442,7 +412,7 @@
                 container.appendChild(card);
             });
 
-            state['aytMat'].forEach(t => aytList.innerHTML += createTaskHTML('aytMat', t));
+            state['tytKamp'].forEach(t => tytList.innerHTML += createTaskHTML('tytKamp', t));
         }
 
         function createTaskHTML(cat, task) {
